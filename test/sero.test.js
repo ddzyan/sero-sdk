@@ -4,7 +4,7 @@ const SeroSdk = require('../lib');
 describe('sero sdk should work', function() {
   let seroSdk = null;
   before(function() {
-    seroSdk = SeroSdk({ baseURL: 'http://172.31.225.20:53716' });
+    seroSdk = SeroSdk({ baseURL: 'http://172.31.225.20:53716' }, true);
   });
   it('createAccount', () => {
     const result = seroSdk.account.createAccount();
