@@ -2,8 +2,9 @@ const assert = require('assert');
 const SeroSdk = require('../lib');
 
 describe('sero sdk should work', function() {
+  let seroSdk = null;
   before(function() {
-    this.seroSdk = SeroSdk({ baseURL: 'http://172.31.225.20:53716' });
+    seroSdk = SeroSdk({ baseURL: 'http://172.31.225.20:53716' });
   });
   it('createAccount', () => {
     const result = this.seroSdk.account.createAccount();
