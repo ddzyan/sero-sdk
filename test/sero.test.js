@@ -3,13 +3,10 @@ const SeroSdk = require('../lib');
 
 describe('sero sdk should work', function() {
   before(function() {
-    const seroSdk = SeroSdk({ baseURL: 'http://172.31.225.20:53716' });
-    this.account = seroSdk.account;
-    this.block = seroSdk.block;
-    this.transfer = seroSdk.transfer;
+    this.seroSdk = SeroSdk({ baseURL: 'http://172.31.225.20:53716' });
   });
   it('createAccount', () => {
-    const result = this.account.createAccount();
+    const result = this.seroSdk.account.createAccount();
     console.log(result);
     const { sk, tk_hex, pk, tk_base58, pk_base58 } = result;
     assert(sk, 'sk does not exist');
@@ -22,7 +19,7 @@ describe('sero sdk should work', function() {
 
   it('getBalance', async () => {
     try {
-      const balance = await this.account.getBalance('123456');
+      const balance = await this.seroSdk.account.getBalance('123456');
       assert(Number.parseInt(balance) > 0, 'balance error');
     } catch (error) {
       assert(false, error);
