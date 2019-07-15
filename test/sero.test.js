@@ -1,14 +1,14 @@
 const assert = require('assert');
-const 
+const randomstring = require('randomstring');
 const SeroSdk = require('../lib');
 
 const getRandom = function(length = 15, charset = 'alphabetic') {
   const randomString = randomstring.generate({
     length,
-    charset
+    charset,
   });
   return randomString;
-}
+};
 
 describe('sero sdk should work', function() {
   let seroSdk = null;
@@ -17,7 +17,7 @@ describe('sero sdk should work', function() {
     seroSdk = SeroSdk({ baseURL: 'http://172.31.225.20:53716' }, true);
   });
   it('createAccount', () => {
-    const seedStr = `${getRandom()}${Date.now()}`
+    const seedStr = `${getRandom()}${Date.now()}`;
     const result = seroSdk.account.createAccount(seedStr);
     const { sk, tk_hex, pk, tk_base58, pk_base58 } = result;
     assert(sk, 'sk does not exist');
@@ -45,7 +45,7 @@ describe('sero sdk should work', function() {
     try {
       const result = await seroSdk.block.getLastBlock();
       if (result.result) {
-        lastBlockNumber = Number.parseInt(result.result,'16').toString('10');
+        lastBlockNumber = Number.parseInt(result.result, '16').toString('10');
         assert(lastBlockNumber > 0, 'getLastBlock error');
       } else {
         throw result.error;
