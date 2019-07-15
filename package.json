@@ -11,5 +11,10 @@
   "devDependencies": {
     "mocha": "^6.1.4",
     "power-assert": "^1.6.1"
+  },
+  "dependencies": {
+    "js-sero-client": "^0.1.7",
+    "lodash": "^4.17.14",
+    "web3": "^1.0.0-beta.55"
   }
 }
