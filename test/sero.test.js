@@ -26,7 +26,7 @@ describe('sero sdk should work', function() {
         throw result.error;
       }
     } catch (error) {
-      assert(false, error);
+      assert(false, JSON.stringify(error));
     }
   });
 });
