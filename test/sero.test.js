@@ -2,7 +2,7 @@ const assert = require('assert');
 const randomstring = require('randomstring');
 const SeroSdk = require('../lib');
 
-const getRandom = function(length = 15, charset = 'alphabetic') {
+const getRandom = function({ length = 15, charset = 'alphabetic' }) {
   const randomString = randomstring.generate({
     length,
     charset,
@@ -17,7 +17,7 @@ describe('sero sdk should work', function() {
     seroSdk = SeroSdk({ baseURL: 'http://172.31.225.20:53716' }, true);
   });
   it('createAccount', () => {
-    const seedStr = `${getRandom()}${Date.now()}`;
+    const seedStr = `${getRandom({ length: 64 })})}`;
     const result = seroSdk.account.createAccount(seedStr);
     const { sk, tk_hex, pk, tk_base58, pk_base58 } = result;
     assert(sk, 'sk does not exist');
