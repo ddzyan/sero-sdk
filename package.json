@@ -13,8 +13,10 @@
     "power-assert": "^1.6.1"
   },
   "dependencies": {
+    "axios": "^0.19.0",
     "js-sero-client": "^0.1.7",
     "lodash": "^4.17.14",
+    "randomstring": "^1.1.5",
     "web3": "^1.0.0-beta.55"
   }
 }

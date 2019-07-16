@@ -12,14 +12,15 @@ const getRandom = function({ length = 15, charset = 'alphabetic' }) {
 
 describe('sero sdk should work', function() {
   let seroSdk = null;
-  let lastBlockNumber = null;
+  let txHash = null;
   let pkStr = null;
   before(function() {
     seroSdk = SeroSdk({ baseURL: 'http://172.31.225.20:53716' }, true);
   });
   it('createAccount', () => {
-    const seedStr = getRandom({ length: 64 });
-    const result = seroSdk.account.createAccount(seedStr);
+    //const seedStr = getRandom({ length: 64 });
+    const result = seroSdk.account.createAccount('TNeVdoCNthrjsPjaLIrKknfleFNMGNYNqewlnVezxGpoixByoTxtwDQZNLioIiFj');
+    console.log('createAccount',result);
     const { sk, tk_hex, pk, tk_base58, pk_base58 } = result;
     assert(sk, 'sk does not exist');
     assert(tk_hex, 'tk_hex does not exist');
@@ -32,6 +33,7 @@ describe('sero sdk should work', function() {
 
   it('generatePKr', () => {
     const result = seroSdk.account.generatePKr(pkStr);
+    console.log('generatePKr',result);
     const { pkr, pkr_hex, pkr_base58 } = result;
     assert(pkr, 'sk does not exist');
     assert(pkr_hex, 'tk_hex does not exist');
@@ -47,49 +49,37 @@ describe('sero sdk should work', function() {
         throw result.error;
       }
     } catch (error) {
-      assert(false, JSON.stringify(error));
+      assert(false, error);
     }
   });
 
   it('getLastBlock', async () => {
     try {
       const result = await seroSdk.block.getLastBlock();
-      if (result.result) {
-        lastBlockNumber = Number.parseInt(result.result, 16).toString(10);
-        assert(Number.parseInt(lastBlockNumber, 10) > 0, 'getLastBlock error');
-      } else {
-        throw result.error;
-      }
+      assert(result.result.BlockNumber > 0, 'getLastBlock error');
     } catch (error) {
-      assert(false, JSON.stringify(error));
+      assert(false, error);
     }
   });
 
   it('getBlockByNumber', async () => {
     try {
-      const result = await seroSdk.block.getBlockByNumber(lastBlockNumber);
-      if (result.result) {
-        assert(Number.parseInt(result.result) > 0, 'getBlockByNumber error');
-      } else {
-        throw result.error;
-      }
+      const result = await seroSdk.block.getBlockByNumber(109);
+      console.log('getBlockByNumber',result);
+      assert(result.result.TxHashes.length > 0, 'getBlockByNumber error');
+      txHash = result.result.TxHashes[0];
     } catch (error) {
-      assert(false, JSON.stringify(error));
+      assert(false, error);
     }
   });
 
-  it('getBlockByHash', async () => {
+  it('getBlockByTxHash', async () => {
     try {
-      const result = await seroSdk.block.getBlockByHash(
-        '0xe670ec64341771606e55d6b4ca35a1a6b75ee3d5145a99d05921026d1527331'
-      );
-      if (result.result) {
-        assert(Number.parseInt(result.result) > 0, 'getBlockByHash error');
-      } else {
-        throw result.error;
-      }
+      const result = await seroSdk.block.getBlockByTxHash(txHash);
+      console.log('getBlockByTxHash',result);
+      assert(result.result, 'getBlockByTxHash error');
     } catch (error) {
-      assert(false, JSON.stringify(error));
+      assert(false, error);
     }
   });
 });
