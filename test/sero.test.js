@@ -13,6 +13,7 @@ const getRandom = function({ length = 15, charset = 'alphabetic' }) {
 describe('sero sdk should work', function() {
   let seroSdk = null;
   let lastBlockNumber = null;
+  let pkStr = null;
   before(function() {
     seroSdk = SeroSdk({ baseURL: 'http://172.31.225.20:53716' }, true);
   });
@@ -23,9 +24,18 @@ describe('sero sdk should work', function() {
     assert(sk, 'sk does not exist');
     assert(tk_hex, 'tk_hex does not exist');
     assert(pk, 'pk does not exist');
+    pkStr = pk;
     assert(tk_base58, 'tk_base58 does not exist');
     assert(tk_base58, 'tk_base58 does not exist');
     assert(pk_base58, 'pk_base58 does not exist');
+  });
+
+  it('generatePKr', () => {
+    const result = seroSdk.account.generatePKr(pkStr);
+    const { pkr, pkr_hex, pkr_base58 } = result;
+    assert(pkr, 'sk does not exist');
+    assert(pkr_hex, 'tk_hex does not exist');
+    assert(pkr_base58, 'pk does not exist');
   });
 
   it('getBalance', async () => {
