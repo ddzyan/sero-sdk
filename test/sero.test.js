@@ -45,8 +45,8 @@ describe('sero sdk should work', function() {
     try {
       const result = await seroSdk.block.getLastBlock();
       if (result.result) {
-        lastBlockNumber = Number.parseInt(result.result, '16').toString('10');
-        assert(lastBlockNumber > 0, 'getLastBlock error');
+        lastBlockNumber = Number.parseInt(result.result, 16).toString(10);
+        assert(Number.parseInt(lastBlockNumber, 10) > 0, 'getLastBlock error');
       } else {
         throw result.error;
       }
