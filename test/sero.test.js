@@ -12,28 +12,27 @@ const getRandom = function({ length = 15, charset = 'alphabetic' }) {
 
 describe('sero sdk should work', function() {
   let seroSdk = null;
-  let txHash = null;
   let pkStr = null;
+  let pkBase58 = null;
   before(function() {
     seroSdk = SeroSdk({ baseURL: 'http://172.31.225.20:53716' }, true);
   });
   it('createAccount', () => {
     //const seedStr = getRandom({ length: 64 });
     const result = seroSdk.account.createAccount('TNeVdoCNthrjsPjaLIrKknfleFNMGNYNqewlnVezxGpoixByoTxtwDQZNLioIiFj');
-    console.log('createAccount',result);
     const { sk, tk_hex, pk, tk_base58, pk_base58 } = result;
     assert(sk, 'sk does not exist');
     assert(tk_hex, 'tk_hex does not exist');
     assert(pk, 'pk does not exist');
-    pkStr = pk;
     assert(tk_base58, 'tk_base58 does not exist');
     assert(tk_base58, 'tk_base58 does not exist');
     assert(pk_base58, 'pk_base58 does not exist');
+    pkStr = pk;
+    pkBase58 = pk_base58;
   });
 
   it('generatePKr', () => {
     const result = seroSdk.account.generatePKr(pkStr);
-    console.log('generatePKr',result);
     const { pkr, pkr_hex, pkr_base58 } = result;
     assert(pkr, 'sk does not exist');
     assert(pkr_hex, 'tk_hex does not exist');
@@ -42,12 +41,8 @@ describe('sero sdk should work', function() {
 
   it('getBalance', async () => {
     try {
-      const result = await seroSdk.account.getBalance('123456');
-      if (result.result) {
-        assert(Number.parseInt(result.result) > 0, 'getBalance error');
-      } else {
-        throw result.error;
-      }
+      const result = await seroSdk.account.getBalance(pkBase58);
+      assert(result.result, 'getBalance error');
     } catch (error) {
       assert(false, error);
     }
@@ -65,9 +60,7 @@ describe('sero sdk should work', function() {
   it('getBlockByNumber', async () => {
     try {
       const result = await seroSdk.block.getBlockByNumber(109);
-      console.log('getBlockByNumber',result);
       assert(result.result.TxHashes.length > 0, 'getBlockByNumber error');
-      txHash = result.result.TxHashes[0];
     } catch (error) {
       assert(false, error);
     }
@@ -75,9 +68,8 @@ describe('sero sdk should work', function() {
 
   it('getBlockByTxHash', async () => {
     try {
-      const result = await seroSdk.block.getBlockByTxHash(txHash);
-      console.log('getBlockByTxHash',result);
-      assert(result.result, 'getBlockByTxHash error');
+      const result = await seroSdk.block.getBlockByTxHash('0xd54dfe82a3be34c87dacd4243ad9a879ceb39ef7d3a6dbd6e3f3b8c450125dfc');
+      assert(result.result.BlockHash, 'getBlockByTxHash error');
     } catch (error) {
       assert(false, error);
     }
