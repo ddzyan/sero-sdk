@@ -16,7 +16,7 @@ describe('sero sdk should work', function() {
   let newSk = null;
   let newPk = null;
   before(function() {
-    seroSdk = SeroSdk({ baseURL: 'http://172.31.225.20:53716', isDebug: true });
+    seroSdk = SeroSdk({ baseURL: 'http://127.0.0.1:53716', isDebug: true });
   });
   it('createAccount', () => {
     const seedStr = getRandom(15);

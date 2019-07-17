@@ -1,6 +1,6 @@
 {
   "name": "sero-sdk",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "sero chain js sdk",
   "main": "./lib/index.js",
   "scripts": {
@@ -22,5 +22,10 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/ddzyan/sero-sdk.git"
-  }
+  },
+  "keywords": [
+    "blockChain",
+    "js",
+    "sero"
+  ]
 }
