@@ -1,21 +1,12 @@
 const assert = require('assert');
-const randomstring = require('randomstring');
 const SeroSdk = require('../lib');
-
-const getRandom = function({ length = 15, charset = 'alphabetic' }) {
-  const randomString = randomstring.generate({
-    length,
-    charset,
-  });
-  return randomString;
-};
 
 describe('sero sdk should work', function() {
   let seroSdk = null;
   let pkStr = null;
   let pkBase58 = null;
   before(function() {
-    seroSdk = SeroSdk({ baseURL: 'http://172.31.225.20:53716' }, true);
+    seroSdk = SeroSdk({ baseURL: 'http://172.31.225.20:53716' ,isDebug = true});
   });
   it('createAccount', () => {
     //const seedStr = getRandom({ length: 64 });
@@ -68,7 +59,9 @@ describe('sero sdk should work', function() {
 
   it('getBlockByTxHash', async () => {
     try {
-      const result = await seroSdk.block.getBlockByTxHash('0xd54dfe82a3be34c87dacd4243ad9a879ceb39ef7d3a6dbd6e3f3b8c450125dfc');
+      const result = await seroSdk.block.getBlockByTxHash(
+        '0xd54dfe82a3be34c87dacd4243ad9a879ceb39ef7d3a6dbd6e3f3b8c450125dfc'
+      );
       assert(result.result.BlockHash, 'getBlockByTxHash error');
     } catch (error) {
       assert(false, error);
