@@ -21,7 +21,7 @@ describe('sero sdk should work', function() {
   it('createAccount', () => {
     const seedStr = getRandom(15);
     const result = seroSdk.account.createAccount(seedStr);
-    const { sk, tk, pk, tk_base58, pk_base58 } = result;
+    const { sk, tk, pk, tk_base58, pk_base58, sk_base58 } = result;
     assert(sk, 'sk does not exist');
     assert(tk, 'tk_hex does not exist');
     assert(pk, 'pk does not exist');
