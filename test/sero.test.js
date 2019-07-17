@@ -6,10 +6,9 @@ describe('sero sdk should work', function() {
   let pkStr = null;
   let pkBase58 = null;
   before(function() {
-    seroSdk = SeroSdk({ baseURL: 'http://172.31.225.20:53716' ,isDebug = true});
+    seroSdk = SeroSdk({ baseURL: 'http://127.0.0.1:53716' ,isDebug : true});
   });
   it('createAccount', () => {
-    //const seedStr = getRandom({ length: 64 });
     const result = seroSdk.account.createAccount('TNeVdoCNthrjsPjaLIrKknfleFNMGNYNqewlnVezxGpoixByoTxtwDQZNLioIiFj');
     const { sk, tk_hex, pk, tk_base58, pk_base58 } = result;
     assert(sk, 'sk does not exist');
