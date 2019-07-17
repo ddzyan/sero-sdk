@@ -12,31 +12,38 @@ const getRandom = function(length = 15, charset = 'alphabetic') {
 
 describe('sero sdk should work', function() {
   let seroSdk = null;
-  let pkStr = null;
-  let pkBase58 = null;
+  let newPkrRandom = null;
+  let newSk = null;
+  let newPk = null;
   before(function() {
     seroSdk = SeroSdk({ baseURL: 'http://172.31.225.20:53716', isDebug: true });
   });
   it('createAccount', () => {
     const seedStr = getRandom(15);
     const result = seroSdk.account.createAccount(seedStr);
-    const { sk, tk_hex, pk, tk_base58, pk_base58 } = result;
+    const { sk, tk, pk, tk_base58, pk_base58 } = result;
     assert(sk, 'sk does not exist');
-    assert(tk_hex, 'tk_hex does not exist');
+    assert(tk, 'tk_hex does not exist');
     assert(pk, 'pk does not exist');
     assert(tk_base58, 'tk_base58 does not exist');
-    assert(tk_base58, 'tk_base58 does not exist');
+    assert(sk_base58, 'sk_base58 does not exist');
     assert(pk_base58, 'pk_base58 does not exist');
-    pkStr = pk;
-    pkBase58 = pk_base58;
+    newPk = pk;
+    newSk = sk;
   });
 
   it('generatePKr', () => {
-    const result = seroSdk.account.generatePKr(pkStr);
-    const { pkr, pkr_hex, pkr_base58 } = result;
+    const result = seroSdk.account.generatePKr(newPk);
+    const { pkr, pkr_base58 ,rnd} = result;
+    newPkrRandom = rnd
     assert(pkr, 'sk does not exist');
-    assert(pkr_hex, 'tk_hex does not exist');
+    assert(rnd, 'rnd does not exist');
     assert(pkr_base58, 'pk does not exist');
+  });
+
+  it('generateSkr', () => {
+    const skr = seroSdk.account.generateSkr(newSk,newPkrRandom);
+    assert(skr, 'skr does not exist');
   });
 
   it('getBalance', async () => {
