@@ -16,7 +16,7 @@ describe('sero sdk should work', function() {
   let newSk = null;
   let newPk = null;
   before(function() {
-    seroSdk = SeroSdk({ baseURL: 'http://127.0.0.1:53716', isDebug: true });
+    seroSdk = SeroSdk({ baseURL: 'http://172.31.225.20:53716', isDebug: true });
   });
   it('createAccount', () => {
     const seedStr = getRandom(15);
@@ -34,15 +34,15 @@ describe('sero sdk should work', function() {
 
   it('generatePKr', () => {
     const result = seroSdk.account.generatePKr(newPk);
-    const { pkr, pkr_base58 ,rnd} = result;
-    newPkrRandom = rnd
+    const { pkr, pkr_base58, rnd } = result;
+    newPkrRandom = rnd;
     assert(pkr, 'sk does not exist');
     assert(rnd, 'rnd does not exist');
     assert(pkr_base58, 'pk does not exist');
   });
 
   it('generateSkr', () => {
-    const skr = seroSdk.account.generateSkr(newSk,newPkrRandom);
+    const skr = seroSdk.account.generateSkr(newSk, newPkrRandom);
     assert(skr, 'skr does not exist');
   });
 
@@ -83,7 +83,7 @@ describe('sero sdk should work', function() {
       assert(false, error);
     }
   });
-  
+
   it('createTx', async () => {
     try {
       const result = await seroSdk.transfer.createTx({
@@ -109,7 +109,7 @@ describe('sero sdk should work', function() {
 
   it('signTx', () => {
     try {
-      const result = await seroSdk.transfer.signTx('','TNeVdoCNthrjsPjaLIrKknfleFNMGNYNqewlnVezxGpoixByoTxtwDQZNLioIiFj');
+      const result = seroSdk.transfer.signTx('', 'TNeVdoCNthrjsPjaLIrKknfleFNMGNYNqewlnVezxGpoixByoTxtwDQZNLioIiFj');
       console.log('signTx', signTx);
       assert(result.result.BlockHash, 'signTx error');
     } catch (error) {
