@@ -18,7 +18,7 @@ describe('sero sdk should work', function() {
   let unsiginTx = null;
   let signTx = null;
   before(function() {
-    seroSdk = SeroSdk({ baseURL: 'http://172.31.225.20:53716', isDebug: false });
+    seroSdk = SeroSdk({ baseURL: 'http://127.0.0.1:53716', isDebug: true });
   });
   after(async function() {
     const result = await seroSdk.account.clearUsedFlag(
