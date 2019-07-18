@@ -72,6 +72,15 @@ describe('sero sdk should work', function() {
     }
   });
 
+  it('getBlocksInfo', async () => {
+    try {
+      const result = await seroSdk.block.getBlocksInfo(1251606, 1);
+      assert(result.result.length > 0, 'getBlocksInfo error');
+    } catch (error) {
+      assert(false, error);
+    }
+  });
+
   it('getBlockByTxHash', async () => {
     try {
       const result = await seroSdk.block.getBlockByTxHash(
