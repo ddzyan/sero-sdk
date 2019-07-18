@@ -139,12 +139,27 @@ describe('sero sdk should work', function() {
 
   it('broadcast', async () => {
     try {
-      //const bufferSignTx = Buffer.from(signTx, 'utf-8');
-      //const hexSignTx = bufferSignTx.toString('hex');
-      //console.log('hexSignTx',hexSignTx);
       const result = await seroSdk.transfer.broadcast(JSON.parse(signTx));
       console.log('broadcast', result);
       assert.equal(result.error, undefined, 'broadcast error');
+    } catch (error) {
+      assert(false, error);
+    }
+  });
+
+  it('getTransactionReceipt', async () => {
+    try {
+      //const bufferSignTx = Buffer.from(signTx, 'utf-8');
+      //const hexSignTx = bufferSignTx.toString('hex');
+      //console.log('hexSignTx',hexSignTx);
+      const result = await seroSdk.transfer.getTransactionReceipt(
+        JSON.parse('0x2264b9b0a847796148aec6fbdb94e0dbbe4b57a0207cd2f5318ec1228f2d7e36')
+      );
+      assert.equal(
+        result.result.transactionHash,
+        '0x2264b9b0a847796148aec6fbdb94e0dbbe4b57a0207cd2f5318ec1228f2d7e36',
+        'getTransactionReceipt error'
+      );
     } catch (error) {
       assert(false, error);
     }
