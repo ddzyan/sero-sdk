@@ -16,8 +16,9 @@ describe('sero sdk should work', function() {
   let newSk = null;
   let newPk = null;
   let unsiginTx = null;
+  let siginTx = null;
   before(function() {
-    seroSdk = SeroSdk({ baseURL: 'http://172.31.225.20:53716', isDebug: false });
+    seroSdk = SeroSdk({ baseURL: 'http://172.31.225.20:53716', isDebug: true });
   });
   it('createAccount', () => {
     const seedStr = getRandom(15);
@@ -119,22 +120,25 @@ describe('sero sdk should work', function() {
 
   it('signTx', async () => {
     try {
-      const signTx = await seroSdk.transfer.signTx(
-        unsiginTx,
+      const result = await seroSdk.transfer.signTx(
+       JSON.stringify(unsiginTx),
         'TNeVdoCNthrjsPjaLIrKknfleFNMGNYNqewlnVezxGpoixByoTxtwDQZNLioIiFj'
       );
-      console.log('signTx', signTx);
-      assert(signTx, 'signTx error');
+      assert(result, 'signTx error');
+      signTx = result;
     } catch (error) {
       assert(false, error);
     }
   });
 
-  it.skip('broadcast', async () => {
+  it('broadcast', async () => {
     try {
-      const result = await seroSdk.transfer.broadcast('');
+      //const bufferSignTx = Buffer.from(signTx, 'utf-8');
+      //const hexSignTx = bufferSignTx.toString('hex');
+      //console.log('hexSignTx',hexSignTx);
+      const result = await seroSdk.transfer.broadcast(JSON.parse(signTx));
       console.log('broadcast', result);
-      assert(result.result.BlockHash, 'broadcast error');
+      assert.equal(result.error , undefined, 'broadcast error');
     } catch (error) {
       assert(false, error);
     }

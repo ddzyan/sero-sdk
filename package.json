@@ -4,7 +4,7 @@
   "description": "sero chain js sdk",
   "main": "./lib/index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha --timeout 30000 "
   },
   "author": "ddz",
   "license": "ISC",
