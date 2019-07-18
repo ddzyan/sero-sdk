@@ -17,7 +17,7 @@ describe('sero sdk should work', function() {
   let newPk = null;
   let unsiginTx = null;
   before(function() {
-    seroSdk = SeroSdk({ baseURL: 'http://127.0.0.1:53716', isDebug: true });
+    seroSdk = SeroSdk({ baseURL: 'http://172.31.225.20:53716', isDebug: false });
   });
   it('createAccount', () => {
     const seedStr = getRandom(15);
@@ -110,7 +110,6 @@ describe('sero sdk should work', function() {
           },
         ],
       });
-      console.log('createTx', result);
       assert(result.result, 'createTx error');
       unsiginTx = result.result;
     } catch (error) {
@@ -118,14 +117,14 @@ describe('sero sdk should work', function() {
     }
   });
 
-  it('signTx', () => {
+  it('signTx', async () => {
     try {
-      const result = seroSdk.transfer.signTx(
+      const signTx = await seroSdk.transfer.signTx(
         unsiginTx,
         'TNeVdoCNthrjsPjaLIrKknfleFNMGNYNqewlnVezxGpoixByoTxtwDQZNLioIiFj'
       );
       console.log('signTx', signTx);
-      assert(result.result.BlockHash, 'signTx error');
+      assert(signTx, 'signTx error');
     } catch (error) {
       assert(false, error);
     }
