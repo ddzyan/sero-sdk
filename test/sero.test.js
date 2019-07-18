@@ -16,9 +16,15 @@ describe('sero sdk should work', function() {
   let newSk = null;
   let newPk = null;
   let unsiginTx = null;
-  let siginTx = null;
+  let signTx = null;
   before(function() {
     seroSdk = SeroSdk({ baseURL: 'http://172.31.225.20:53716', isDebug: true });
+  });
+  after(async function() {
+    const result = await seroSdk.account.clearUsedFlag(
+      '0xab189440849da94cd5519e9cb174f06af4f41f0897451a67aa16322757ec691a34cfa407ba1fa9ca8b1aa59f38066250cc7ac17e9710ece5779fe67dcbea2213'
+    );
+    assert(result.result, 'clearUsedFlag error');
   });
   it('createAccount', () => {
     const seedStr = getRandom(15);
@@ -121,7 +127,7 @@ describe('sero sdk should work', function() {
   it('signTx', async () => {
     try {
       const result = await seroSdk.transfer.signTx(
-       JSON.stringify(unsiginTx),
+        JSON.stringify(unsiginTx),
         'TNeVdoCNthrjsPjaLIrKknfleFNMGNYNqewlnVezxGpoixByoTxtwDQZNLioIiFj'
       );
       assert(result, 'signTx error');
@@ -138,7 +144,7 @@ describe('sero sdk should work', function() {
       //console.log('hexSignTx',hexSignTx);
       const result = await seroSdk.transfer.broadcast(JSON.parse(signTx));
       console.log('broadcast', result);
-      assert.equal(result.error , undefined, 'broadcast error');
+      assert.equal(result.error, undefined, 'broadcast error');
     } catch (error) {
       assert(false, error);
     }
