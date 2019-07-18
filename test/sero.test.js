@@ -96,11 +96,11 @@ describe('sero sdk should work', function() {
   it('createTx', async () => {
     try {
       const result = await seroSdk.transfer.createTx({
-        from:
+        From:
           '0xab189440849da94cd5519e9cb174f06af4f41f0897451a67aa16322757ec691a34cfa407ba1fa9ca8b1aa59f38066250cc7ac17e9710ece5779fe67dcbea2213',
-        refundTo:
+        RefundTo:
           '0x04d4f287b9421d8161ac05c4827e3985f2d0346d5742f4ac4c01dbcf6fea4a87e796fd5a1750c5be4f5a8b6e6ce24c30c7701bfa8c70a8c49f7a6b2beb962b80655155b4bf37585a0519a3bbba7a26f628074551c4c412b0c401b9ff27eb5086',
-        receptions: [
+        Receptions: [
           {
             //接受者信息
             Addr:
