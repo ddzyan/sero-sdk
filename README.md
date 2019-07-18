@@ -4,6 +4,8 @@
 
 ## 操作
 
+请注意先修改 sero.test.js 中的节点 IP 和 port
+
 ### 测试
 
 ```sh
