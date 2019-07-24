@@ -112,8 +112,7 @@ describe('sero sdk should work', function() {
         Receptions: [
           {
             //接受者信息
-            Addr:
-              '0x92f6cc58c5fd61ada776c90eba892d17e620f087894eac955ac6238057826ca6bc50f2e163e6553711b02f0334467f3f00f52e821f79004d0b2d98d90cbdda15a15d73a7cf457d248098b147bff32a2f1defee03cc93ef3abcb15148ea733f9d', //接受者PKr|PK，PK会自动转成PKr
+            Addr:'0x656f8f08438e8910435d83cf68dd65b8b6ccca2a82e660b1e0f85ab30ba20129710d8cbc592ee834c0648156c9eec12a754ef54befcc3c42e35f130b2a2d2c1ee9e535d33b8dbdcdac9b2527206287e7584f4453f23e9dbcf0186664df17fb97',
             Currency: 'SERO', //币名
             Value: 1, //币的数量
           },
