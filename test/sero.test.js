@@ -18,7 +18,7 @@ describe('sero sdk should work', function() {
   let unsiginTx = null;
   let signTx = null;
   before(function() {
-    seroSdk = SeroSdk({ baseURL: 'http://127.0.0.1:53716', isDebug: true });
+    seroSdk = SeroSdk({ baseURL: 'http://172.31.225.20:53716', isDebug: true });
   });
   after(async function() {
     const result = await seroSdk.account.clearUsedFlag(
@@ -29,6 +29,7 @@ describe('sero sdk should work', function() {
   it('createAccount', () => {
     const seedStr = getRandom(15);
     const result = seroSdk.account.createAccount(seedStr);
+    console.log('createAccount',result);
     const { sk, tk, pk, tk_base58, pk_base58, sk_base58 } = result;
     assert(sk, 'sk does not exist');
     assert(tk, 'tk_hex does not exist');
@@ -42,6 +43,7 @@ describe('sero sdk should work', function() {
 
   it('generatePKr', () => {
     const result = seroSdk.account.generatePKr(newPk);
+    console.log('pkr',result);
     const { pkr, rnd } = result;
     newPkrRandom = rnd;
     assert(pkr, 'pkr does not exist');
@@ -130,6 +132,7 @@ describe('sero sdk should work', function() {
         JSON.stringify(unsiginTx),
         'TNeVdoCNthrjsPjaLIrKknfleFNMGNYNqewlnVezxGpoixByoTxtwDQZNLioIiFj'
       );
+      console.log('signTx',result);
       assert(result, 'signTx error');
       signTx = result;
     } catch (error) {
