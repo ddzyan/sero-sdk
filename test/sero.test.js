@@ -18,13 +18,13 @@ describe('sero sdk should work', function() {
   let unsiginTx = null;
   let signTx = null;
   before(function() {
-    seroSdk = SeroSdk({ baseURL: 'http://127.0.0.1:53716', isDebug: false });
+    seroSdk = SeroSdk({ baseURL: 'http://127.0.0.1:53716', isDebug: true });
   });
   after(async function() {
     const result = await seroSdk.account.clearUsedFlag('0xab189440849da94cd5519e9cb174f06af4f41f0897451a67aa16322757ec691a34cfa407ba1fa9ca8b1aa59f38066250cc7ac17e9710ece5779fe67dcbea2213');
     assert(result.result, 'clearUsedFlag error');
   });
-  it('createAccount', () => {
+  it.skip('createAccount', () => {
     const seedStr = getRandom(15);
     const result = seroSdk.account.createAccount(seedStr);
     console.log('createAccount', result);
@@ -39,7 +39,7 @@ describe('sero sdk should work', function() {
     newSk = sk;
   });
 
-  it('generatePKr', () => {
+  it.skip('generatePKr', () => {
     const result = seroSdk.account.generatePKr(newPk);
     console.log('generatePKr', result);
     const { pkr, rnd } = result;
@@ -48,7 +48,7 @@ describe('sero sdk should work', function() {
     assert(rnd, 'rnd does not exist');
   });
 
-  it('generateSkr', () => {
+  it.skip('generateSkr', () => {
     const skr = seroSdk.account.generateSkr(newSk, newPkrRandom);
     console.log('generateSkr', skr);
     assert(skr, 'skr does not exist');
@@ -99,19 +99,19 @@ describe('sero sdk should work', function() {
     }
   });
 
-  it.skip('createTx', async () => {
+  it('createTx', async () => {
     try {
-      const result = await seroSdk.transfer.createTx({
-        From: '0x6d1e492a0461c1a1a5043fa241a907ed21fb0173532af9bfec3643e19986482be2f737a74455d239a0f87f9208dbdcace4d51477c53a4c69f91c7180355d0c91',
+      const result = await seroSdk.transfer.exchangeCreateTx({
+        From: '0xab189440849da94cd5519e9cb174f06af4f41f0897451a67aa16322757ec691a34cfa407ba1fa9ca8b1aa59f38066250cc7ac17e9710ece5779fe67dcbea2213',
         RefundTo:
-          '0x09ec7a0ad0d5fb0ba2c4f97d69caa22b0339ff3aeb58d403fc27a7106cd93030470a7de49b4c43f47b030cb7219ea36bd14db224da8a3a55c007e16319c96e91a5f960173381c24d74da2e88c39e72f5933989ed606db286b30c30aa0c4a7786',
+          '0x04d4f287b9421d8161ac05c4827e3985f2d0346d5742f4ac4c01dbcf6fea4a87e796fd5a1750c5be4f5a8b6e6ce24c30c7701bfa8c70a8c49f7a6b2beb962b80655155b4bf37585a0519a3bbba7a26f628074551c4c412b0c401b9ff27eb5086',
         Receptions: [
           {
             //接受者信息
             Addr:
-              '0x21a69e93b087cc87555ab9551b638d3957c1ff0d7eaf60da97af1d0331dd56a2a08761ae4d2f508fdf8a3f771cb3702f6e9e65fb2ac23da1ef5d176e12a2851ae6d6c91f7de41a20d8f54259416fb8d446c74a099b18c5f2c65adb8e5dd7bf2d',
+              '0x0d463603790d755ecdf465907949cadd83a36f4f1e2fd19116e0a2f293bcf4011ce10443117f8b8952b27008f92c218637fa0c10459a26908bb19c63f063d9052b4d85dd9d6a3978185f8b73acee12f21313a7cf17f8facd26de7e7ca405dd07',
             Currency: 'SERO', //币名
-            Value: 9975000000000019 //币的数量
+            Value: 20 //币的数量
           }
         ]
       });
@@ -122,9 +122,9 @@ describe('sero sdk should work', function() {
     }
   });
 
-  it.skip('signTx', async () => {
+  it('signTx', async () => {
     try {
-      const result = await seroSdk.transfer.signTx(JSON.stringify(unsiginTx), 'gPaeGWHPixgHjhc');
+      const result = await seroSdk.transfer.signTx(JSON.stringify(unsiginTx), 'TNeVdoCNthrjsPjaLIrKknfleFNMGNYNqewlnVezxGpoixByoTxtwDQZNLioIiFj');
       console.log('signTx', result);
       assert(result, 'signTx error');
       signTx = result;
@@ -133,9 +133,9 @@ describe('sero sdk should work', function() {
     }
   });
 
-  it.skip('broadcast', async () => {
+  it('broadcast', async () => {
     try {
-      const result = await seroSdk.transfer.broadcast(JSON.parse(signTx));
+      const result = await seroSdk.transfer.exchangeBroadcast(JSON.parse(signTx));
       console.log('broadcast', result);
       assert.equal(result.error, undefined, 'broadcast error');
     } catch (error) {
