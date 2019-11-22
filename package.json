@@ -1,6 +1,6 @@
 {
   "name": "sero-sdk",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "sero chain js sdk",
   "main": "./lib/index.js",
   "scripts": {
